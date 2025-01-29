@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CatGram</title>
+    <script src="https://kit.fontawesome.com/32c27fcdc6.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cats/style.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}" >
+</head>
+<body>
+    <header>
+        <div class="header">
+                <a href="{% url 'home' %}" class="h">CatGram</a>
+        </div>
+
+        <div class="auth-links">
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" id="profile">
+                <i class="fa-regular fa-circle-user"></i>
+                <p>{{ user.username }}</p>
+                <p>|</p>
+            </a>
+            <a href="{% url 'logout' %}" class="link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="link">Login</a> | <a href="{% url 'register' %}" class="link">Register</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CatGram</p>
+    </footer>
+</body>
+</html>

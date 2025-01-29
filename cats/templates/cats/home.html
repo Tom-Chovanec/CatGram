@@ -1,0 +1,78 @@
+{% extends 'cats/base.html' %}
+
+{% block content %}
+<h1 style="text-align: center;">Galéria</h1>
+<div class="gallery">
+    {% for cat in cats %}
+        <div class="gallery-item" data-cat-id="{{ cat.id }}" data-cat-is-liked="{{ cat.user_liked }}">
+        <img src="{{ cat.image.url }}" alt="{{ cat.title }}">
+        <div class="overlay">
+            {% if cat.user_liked %}
+                <i class="fa-solid fa-heart"></i>
+            {% else %}
+                <i class="fa-regular fa-heart"></i>
+            {% endif %}
+            <div class="like-count"> <span class="like-number">{{ cat.like_count }}</span></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'upload_cat' %}">
+    <div class="upload-image">
+        <i class="fa-solid fa-paper-plane"></i>
+    </div>
+</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    galleryItems.forEach(item => {
+        item.addEventListener('click', async (event) => {
+            event.stopPropagation();
+
+            const catId = item.getAttribute('data-cat-id');
+            const isLiked = item.getAttribute('data-cat-is-liked') === 'true';
+
+            try {
+                const response = await fetch(`/like/${catId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken(),
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    const likeCountElement = item.querySelector('.like-number');
+                    const heartIcon = item.querySelector('i');
+
+                    if (data.liked) {
+                        heartIcon.classList.remove('fa-regular');
+                        heartIcon.classList.add('fa-solid');
+                    } else {
+                        heartIcon.classList.remove('fa-solid');
+                        heartIcon.classList.add('fa-regular');
+                    }
+
+                    likeCountElement.textContent = data.like_count;
+                    item.setAttribute('data-cat-is-liked', data.liked);
+                } else {
+                    console.error('Failed to like/unlike the cat.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+
+    function getCSRFToken() {
+        const csrfToken = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
+        return csrfToken ? csrfToken.split('=')[1] : '';
+    }
+});
+</script>
+{% endblock %}

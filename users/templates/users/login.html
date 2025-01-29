@@ -1,0 +1,16 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="id_username">Prihlasovacie meno</label>
+        {{ form.username }}
+    </div>
+    <div>
+        <label for="id_password">Heslo</label>
+        {{ form.password }}
+    </div>
+    <button type="submit">Prihlásiť</button>
+</form>
+{% endblock %}

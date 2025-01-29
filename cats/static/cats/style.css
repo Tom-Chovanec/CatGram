@@ -1,0 +1,323 @@
+:root {
+    --charcoal: #264653ff;
+    --persian-green: #2a9d8fff;
+    --saffron: #e9c46aff;
+    --sandy-brown: #f4a261ff;
+    --burnt-sienna: #e76f51ff;
+    --dark-bg: #1d1f21;
+    --dark-card: #2d3035;
+    --light-text: #f5f5f5;
+    --input-bg: #3c4045;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--dark-bg);
+    color: var(--light-text);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    width: 100%;
+    background-color: var(--dark-bg);
+    padding: 20px;
+    color: var(--light-text);
+    font-family: Arial, sans-serif;
+    margin-bottom: 2rem;
+}
+
+main a {
+    color: var(--light-text);
+    text-decoration: none;
+    margin-top: 2rem;
+}
+
+main a:hover {
+    color: var(--saffron);
+}
+
+.header {
+    justify-self: center;
+    grid-column: 2;
+}
+
+.header .h {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--saffron);
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+    text-decoration: none;
+}
+
+footer {
+    margin-top: 2rem;
+}
+
+.auth-links {
+    display: flex;
+    grid-column: 3;
+    justify-self: right;
+    color: var(--persian-green);
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-links #profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.auth-links p {
+    color: var(--persian-green);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.auth-links .link {
+    text-decoration: none;
+    color: var(--persian-green);
+    font-size: 1.1rem;
+}
+
+.auth-links a:hover {
+    color: var(--burnt-sienna);
+}
+
+.auth-links i {
+    font-size: 1.5rem;
+    color: var(--persian-green);
+    cursor: pointer;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+.gallery-item {
+    background-color: var(--dark-card);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 5px;
+}
+
+.gallery-item:hover {
+    transform: rotate(-2deg);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item img {
+    width: 100%;
+    border-radius: 15px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.like-count {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    color: var(--light-text);
+}
+
+form {
+    background-color: var(--dark-card);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form div {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--light-text);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--persian-green);
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    background-color: var(--input-bg);
+    color: var(--light-text);
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--sandy-brown);
+}
+
+button {
+    background-color: var(--persian-green);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+}
+
+button:hover {
+    background-color: var(--sandy-brown);
+}
+
+.file-upload-button {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+    color: white;
+    background-color: var(--persian-green);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-button:hover {
+    background-color: var(--sandy-brown);
+}
+
+#file-name {
+    display: block;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.upload-image {
+    position: fixed;
+    right: 0;
+    top: 200px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: var(--persian-green);
+    background-color: var(--dark-card);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    font-size: 25px;
+    box-shadow: 3px 3px 3px black;
+    width: 50px;
+    height: 50px;
+    padding-left: 10px;
+    transition: all 200ms ease-out;
+}
+
+.upload-image i {
+    filter: drop-shadow(3px 3px 3px #242424);
+}
+
+.upload-image:hover i {
+    filter: drop-shadow(3px 3px 3px black);
+}
+
+.profile {
+    padding: 20px;
+    text-align: center;
+}
+
+.profile .btn-delete {
+    background-color: #ff4d4d; color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.profile .btn-delete:hover {
+    background-color: #ff1a1a;
+}
+
+.profile form {
+    background-color: transparent;
+    box-shadow: none;
+
+}
+
+.upload-btn a {
+    display: inline-block;
+    background-color: var(--dark-card);
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.upload-btn a:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    color: var(--persian-green);
+}
+
+.upload-btn {
+    text-align: center; /* Center the button */
+}

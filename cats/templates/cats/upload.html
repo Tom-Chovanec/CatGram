@@ -1,0 +1,39 @@
+{% extends 'cats/base.html' %}
+
+{% block content %}
+<style>
+main {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    width: 40%;
+}
+</style>
+<h1>Nahraj obrázok mačky</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label for="id_title">Názov</label>
+        {{ form.title }}
+    </div>
+    <div>
+        <label for="file-upload" class="file-upload-button">
+            Vyberte obrázok
+        </label>
+        <input id="file-upload" type="file" name="image" accept="image/*" style="display: none;">
+        <span id="file-name">Žiadny súbor vybraný</span>
+    </div>
+    <button type="submit">Nahraj</button>
+</form>
+<a href="{% url 'home' %}">Späť do galérie</a>
+
+<script>
+    const fileInput = document.getElementById('file-upload');
+    const fileNameSpan = document.getElementById('file-name');
+
+    fileInput.addEventListener('change', function () {
+        fileNameSpan.textContent = this.files[0] ? this.files[0].name : 'Žiadny súbor vybraný';
+    });
+</script>
+{% endblock %}
