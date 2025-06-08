@@ -35,16 +35,6 @@ header {
     margin-bottom: 2rem;
 }
 
-main a {
-    color: var(--light-text);
-    text-decoration: none;
-    margin-top: 2rem;
-}
-
-main a:hover {
-    color: var(--saffron);
-}
-
 .header {
     justify-self: center;
     grid-column: 2;
@@ -59,6 +49,17 @@ main a:hover {
     text-align: center;
     text-decoration: none;
 }
+
+main a {
+    color: var(--light-text);
+    text-decoration: none;
+    margin-top: 2rem;
+}
+
+main a:hover {
+    color: var(--saffron);
+}
+
 
 footer {
     margin-top: 2rem;
@@ -151,14 +152,25 @@ footer {
     transition: opacity 0.3s ease;
 }
 
+[data-cat-is-liked="True"] {
+    color: var(--saffron);
+}
+
+[data-cat-is-liked="False"] {
+    color: var(--light-text);
+}
+
 .gallery-item:hover .overlay {
     opacity: 1;
 }
 
 .like-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     font-size: 1rem;
     margin-top: 0.5rem;
-    color: var(--light-text);
 }
 
 form {
@@ -283,7 +295,8 @@ input[type="file"] {
 }
 
 .profile .btn-delete {
-    background-color: #ff4d4d; color: white;
+    background-color: #ff4d4d;
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
@@ -314,10 +327,72 @@ input[type="file"] {
 }
 
 .upload-btn a:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     color: var(--persian-green);
 }
 
 .upload-btn {
-    text-align: center; /* Center the button */
+    text-align: center;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 200px;
+    margin-left: 2rem;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    animation: fadeOutPopout 2.5s linear forwards;
+}
+
+@keyframes fadeOutPopout {
+    0% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.popup-content {
+    background-color: var(--input-bg);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.countdown-bar {
+    position: absolute;
+    bottom: 0;
+    padding: 10px, 0;
+    left: 3%;
+    width: 94%;
+    height: 2px;
+    background-color: var(--saffron);
+    animation: countdown 2.5s linear forwards;
+}
+
+@keyframes countdown {
+    from {
+        width: 94%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+.popup-content p {
+    margin: 0;
 }

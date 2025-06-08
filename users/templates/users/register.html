@@ -1,20 +1,22 @@
 {% extends 'users/base.html' %}
 
 {% block content %}
+<h2>Registrácia</h2>
+
 <form method="post">
     {% csrf_token %}
-    <div>
-        <label for="id_username">Prihlasovacie meno</label>
-        {{ form.username }}
-    </div>
-    <div>
-        <label for="id_password1">Heslo</label>
-        {{ form.password1 }}
-    </div>
-    <div>
-        <label for="id_password2">Zopakuj heslo</label>
-        {{ form.password2 }}
-    </div>
-    <button type="submit">Registovať</button>
+    {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="form-error">{{ field.errors|striptags }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit">Registrovať</button>
 </form>
+
+<a href="{% url 'login' %}">Už máš účet? Prihlás sa</a>
 {% endblock %}
+

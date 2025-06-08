@@ -7,6 +7,7 @@
         <div class="gallery-item" data-cat-id="{{ cat.id }}" data-cat-is-liked="{{ cat.user_liked }}">
         <img src="{{ cat.image.url }}" alt="{{ cat.title }}">
         <div class="overlay">
+            <h3>{{ cat.title }}</h3>
             {% if cat.user_liked %}
                 <i class="fa-solid fa-heart"></i>
             {% else %}
@@ -18,25 +19,77 @@
     {% endfor %}
 </div>
 
-<a href="{% url 'upload_cat' %}">
-    <div class="upload-image">
-        <i class="fa-solid fa-paper-plane"></i>
+{% if user.is_authenticated %}
+    <a href="{% url 'upload_cat' %}">
+        <div class="upload-image">
+            <i class="fa-solid fa-paper-plane"></i>
+        </div>
+    </a>
+{% else %}
+    <a href="{% url 'login' %}">
+        <div class="upload-image">
+            <i class="fa-solid fa-paper-plane"></i>
+        </div>
+    </a>
+{% endif %}
+
+<div id="loginPopup" class="popup">
+    <div class="popup-content">
+        <p>Musíš byť prihlásený/-á ak chceš likovať fotky</p>
     </div>
-</a>
+    <div class="countdown-bar"></div>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const galleryItems = document.querySelectorAll('.gallery-item');
+    const loginPopup = document.getElementById('loginPopup');
+
+    function showLoginPopup() {
+        loginPopup.style.display = 'flex';
+        loginPopup.style.animation = 'none';
+
+        void loginPopup.offsetWidth;
+        loginPopup.style.animation = 'fadeOutPopup 2.5s linear forwards';
+
+        const countdownBar = loginPopup.querySelector('.countdown-bar');
+        countdownBar.style.animation = 'none';
+
+        void countdownBar.offsetWidth;
+        countdownBar.style.animation = 'countdown 2.5s linear forwards';
+    }
+
+    function hideLoginPopup() {
+        loginPopup.style.display = 'none';
+    }
+
+    loginPopup.addEventListener('click', (event) => {
+        if (event.target === loginPopup) {
+            hideLoginPopup();
+        }
+    });
 
     galleryItems.forEach(item => {
         item.addEventListener('click', async (event) => {
             event.stopPropagation();
 
+            const isAuthenticated = "{{ user.is_authenticated }}" === "True";
+
+            if (!isAuthenticated) {
+                showLoginPopup();
+
+                const countdownBar = loginPopup.querySelector('.countdown-bar');
+                countdownBar.addEventListener('animationend', () => {
+                    hideLoginPopup();
+                }, { once: true });
+                return;
+            }
+
             const catId = item.getAttribute('data-cat-id');
             const isLiked = item.getAttribute('data-cat-is-liked') === 'true';
 
             try {
-                const response = await fetch(`/like/${catId}/`, {
+               const response = await fetch(`/catgram/like/${catId}/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -59,7 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     likeCountElement.textContent = data.like_count;
-                    item.setAttribute('data-cat-is-liked', data.liked);
+                    if (data.liked) {
+                        item.setAttribute('data-cat-is-liked', 'True');
+                    } else {
+                        item.setAttribute('data-cat-is-liked', 'False');
+                    }
                 } else {
                     console.error('Failed to like/unlike the cat.');
                 }

@@ -21,10 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("polls/", include("polls.urls")),
-    path("users/", include("users.urls")),
-    path("", include("cats.urls")),
-    path("admin/", admin.site.urls),
+    path("catgram/users/", include("users.urls")),
+    path("catgram/", include("cats.urls")),
+    path("catgram/admin/", admin.site.urls),
+    # path("catgram/capcha/", include("django_recaptcha.urls")),
 ]
 
 if settings.DEBUG:

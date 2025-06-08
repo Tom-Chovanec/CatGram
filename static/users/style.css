@@ -43,14 +43,15 @@ main {
     width: 40%;
 }
 
-.header h1 {
+.header .h {
     font-size: 3rem;
     font-weight: bold;
     color: var(--saffron);
     margin: 0;
+    flex-grow: 1;
     text-align: center;
+    text-decoration: none;
 }
-
 
 footer {
     margin-top: 2rem;
@@ -78,7 +79,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--persian-green);
@@ -92,7 +94,8 @@ input[type="password"] {
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="email"]:focus {
     border-color: var(--sandy-brown);
 }
 
@@ -111,4 +114,16 @@ button {
 
 button:hover {
     background-color: var(--sandy-brown);
+}
+
+a {
+    color: var(--persian-green);
+    text-decoration: none;
+    margin-top: 1em;
+}
+
+.form-error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
 }
